@@ -15,9 +15,10 @@ app.get('/', function (req, res) {
      res.sendFile(process.cwd() + '/views/index.html');
   });
 
-app.get('/api/fileanalyse', upload.single('upfile') ,function(req, res){
+app.post('/api/fileanalyse', upload.single('upfile') ,function(req, res){
   console.log(req.file);
-  console.log(req.body);
+  let {originalname: name, mimetype: type, size} = req.file;
+  res.json({name, type, size});
 });
 
 app.listen(process.env.PORT || 3000, function () {
